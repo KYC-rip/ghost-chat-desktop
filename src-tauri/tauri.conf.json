@@ -1,0 +1,41 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nicedozia/schemas-tauri2/main/tauri.conf.json",
+  "productName": "Ghost Chat",
+  "version": "0.1.0",
+  "identifier": "rip.walls.ghostchat",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1420",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Ghost Chat — Encrypted Comms",
+        "width": 1000,
+        "height": 700,
+        "minWidth": 400,
+        "minHeight": 500,
+        "decorations": true,
+        "transparent": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; connect-src 'self' wss://*.relay.* wss://* https://*; style-src 'self' 'unsafe-inline'; script-src 'self'"
+    },
+    "trayIcon": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
+    }
+  },
+  "plugins": {
+    "notification": {
+      "enabled": true
+    },
+    "store": {},
+    "shell": {
+      "open": true
+    }
+  }
+}
