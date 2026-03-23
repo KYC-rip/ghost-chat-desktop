@@ -29,6 +29,9 @@
       "iconAsTemplate": true
     }
   },
+  "bundle": {
+    "createUpdaterArtifacts": false
+  },
   "plugins": {
     "notification": {
       "enabled": true

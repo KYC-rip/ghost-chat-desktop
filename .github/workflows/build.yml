@@ -67,7 +67,9 @@ jobs:
           releaseBody: 'End-to-end encrypted desktop messenger. PGP over Nostr. No accounts, no servers, no logs.'
           releaseDraft: true
           prerelease: false
+          includeUpdaterJson: false
           args: ${{ matrix.platform == 'macos-latest' && '--target universal-apple-darwin' || '' }}
+          includeDebug: false
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
