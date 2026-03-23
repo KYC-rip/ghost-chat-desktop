@@ -56,27 +56,17 @@ jobs:
       - name: Install frontend dependencies
         run: npm install
 
-      # On v* tags: build + publish GitHub Release
-      - name: Build & Release (tag)
-        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Build Tauri
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: v__VERSION__
-          releaseName: 'Ghost Chat v__VERSION__'
-          releaseBody: 'End-to-end encrypted desktop messenger. PGP over Nostr.'
+          tauriScript: npx tauri
+          tagName: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '' }}
+          releaseName: ${{ startsWith(github.ref, 'refs/tags/v') && format('Ghost Chat {0}', github.ref_name) || '' }}
+          releaseBody: 'End-to-end encrypted desktop messenger. PGP over Nostr. No accounts, no servers, no logs.'
           releaseDraft: true
           prerelease: false
-          args: ${{ matrix.platform == 'macos-latest' && '--target universal-apple-darwin' || '' }}
-
-      # On branches / PRs / manual: build only (no release)
-      - name: Build (no release)
-        if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
           args: ${{ matrix.platform == 'macos-latest' && '--target universal-apple-darwin' || '' }}
 
       - name: Upload artifacts
