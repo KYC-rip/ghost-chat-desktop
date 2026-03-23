@@ -43,10 +43,6 @@
     ]
   },
   "plugins": {
-    "notification": {
-      "enabled": true
-    },
-    "store": {},
     "shell": {
       "open": true
     }
